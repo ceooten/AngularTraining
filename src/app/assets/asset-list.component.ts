@@ -38,14 +38,10 @@ export class AssetList {
 
     constructor(private route: ActivatedRoute, 
         private logger: LogService, 
-        private router: Router, 
         private assetService: AssetService) {}
 
     ngOnInit() {
-        //Update assets table datasource upon asset data changing
-        this.getAssets().then(() => {
-            this.dataSource.data = [...this.assets];
-        });
+        this.getAssets();
 
         this.initFilterListeners();
 
@@ -136,8 +132,9 @@ export class AssetList {
     //Get all assets
     public getAssets() {
         this.logger.log("Fetching all asset data")
-        return this.assetService.getAssets().toPromise().then(assetList => {
+        return this.assetService.getAssets().subscribe(assetList => {
             this.assets = assetList;
+            this.dataSource.data = [...this.assets];
         });
     }
 }
