@@ -33,7 +33,7 @@ export class AssetService {
   }
 
   public updateAsset(asset : Asset) : Observable<Asset> { 
-    return this.http.put<Asset>(`${environment.api_url}/assets/` + asset.assetTagId, JSON.stringify(asset));
+    return this.http.put<Asset>(`${environment.api_url}/assets/` + asset.assetTagId, asset);
   }
 
 }
