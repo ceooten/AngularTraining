@@ -136,7 +136,7 @@ export class AssetList {
                 (data.description == null ? "" : data.description).toString().trim().toLowerCase().indexOf(searchString.description.toLowerCase()) !== -1 &&
                 (data.assignedTo == null ? "" : data.assignedTo).toString().trim().toLowerCase().indexOf(searchString.assignedTo.toLowerCase()) !== -1 &&
                 (data.dateAdded == null ? "" : data.dateAdded).toString().trim().toLowerCase().indexOf(searchString.dateAdded.toLowerCase()) !== -1 &&
-                (data.retired == null ? "" : data.retired).toString().indexOf(searchString.retired) !== -1 &&
+                (data.retired == null ? "" : data.retired).toString().indexOf(searchString.retired.toLowerCase()) !== -1 &&
                 (data.dateRetired == null ? "" : data.dateRetired).toString().trim().toLowerCase().indexOf(searchString.dateRetired.toLowerCase()) !== -1;
         }
 
