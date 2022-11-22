@@ -6,6 +6,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { LogService } from '../shared/log.service';
 import { DateFormat } from '@/constants/dateFormat';
 import { NgForm } from '@angular/forms';
+import { catchError } from 'rxjs/operators';
+import { of, throwError } from 'rxjs';
 
 @Component({
     selector: 'asset-details',
@@ -26,7 +28,7 @@ export class AssetDetails {
         private snackBar: MatSnackBar) { }
 
     ngOnInit() {
-        this.route.paramMap.subscribe( params => {
+        this.route.paramMap.subscribe(params => {
             this.assetTagId = params.get('assetTagId');
         });
 
@@ -35,7 +37,7 @@ export class AssetDetails {
 
     //Refresh asset details
     getAssetDetails() {
-        return this.assetService.getAssetById(this.assetTagId).toPromise().then(assetDetails => {
+        return this.assetService.getAssetById(this.assetTagId).subscribe(assetDetails => {
             this.assetDetails = assetDetails;
         });
     }
@@ -44,17 +46,17 @@ export class AssetDetails {
     retireAsset(assetDetailsForm: NgForm) {
         if (assetDetailsForm.valid) {
             this.logger.log("Retiring asset with Asset Tag ID: " + this.assetTagId);
-            return this.assetService.retireAsset(this.assetTagId).toPromise().then(() => {
+            return this.assetService.retireAsset(this.assetTagId).subscribe(() => {
                 this.getAssetDetails();
                 this.snackBar.open('Asset successfully retired.', 'Dismiss', {
                     duration: 5000
                 });
-            }).catch((error) => {
+            }), (error) => {
                 this.logger.log(error);
                 this.snackBar.open('Asset failed to retire, please try again.', 'Dismiss', {
                     duration: 5000
                 });
-            });
+            };
         } else {
             this.snackBar.open('Oops! Please check for validation errors and try again.', 'Dismiss', {
                 duration: 5000
@@ -66,17 +68,17 @@ export class AssetDetails {
     unretireAsset(assetDetailsForm: NgForm) {
         if (assetDetailsForm.valid) {
             this.logger.log("Un-retiring asset with Asset Tag ID: " + this.assetTagId);
-            return this.assetService.unretireAsset(this.assetTagId).toPromise().then(() => {
+            return this.assetService.unretireAsset(this.assetTagId).subscribe(() => {
                 this.getAssetDetails();
                 this.snackBar.open('Asset successfully un-retired.', 'Dismiss', {
                     duration: 5000
                 });
-            }).catch((error) => {
+            }), (error) => {
                 this.logger.log(error);
                 this.snackBar.open('Asset failed to un-retire, please try again.', 'Dismiss', {
                     duration: 5000
                 });
-            });
+            };
         } else {
             this.snackBar.open('Oops! Please check for validation errors and try again.', 'Dismiss', {
                 duration: 5000
@@ -88,17 +90,17 @@ export class AssetDetails {
     updateAsset(assetDetailsForm: NgForm) {
         if (assetDetailsForm.valid) {
             this.logger.log("Updating asset with Asset Tag ID: " + this.assetTagId);
-            return this.assetService.updateAsset(this.assetDetails).toPromise().then(() => {
+            return this.assetService.updateAsset(this.assetDetails).subscribe(() => {
                 this.getAssetDetails();
                 this.snackBar.open('Asset successfully updated.', 'Dismiss', {
                     duration: 5000
                 });
-            }).catch((error) => {
+            }), (error) => {
                 this.logger.log(error);
                 this.snackBar.open('Asset failed to update, please try again.', 'Dismiss', {
                     duration: 5000
                 });
-            });
+            };
         } else {
             this.snackBar.open('Oops! Please check for validation errors and try again.', 'Dismiss', {
                 duration: 5000
