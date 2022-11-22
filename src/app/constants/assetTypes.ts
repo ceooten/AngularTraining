@@ -1,1 +1,8 @@
-export const AssetTypes = ["Desktop", "Laptop", "Display", "Phone", "External Hard Drive", "Other"];
+export const AssetTypes = [
+    "Desktop", 
+    "Laptop", 
+    "Display", 
+    "Phone", 
+    "External Hard Drive", 
+    "Other"
+];
