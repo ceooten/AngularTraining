@@ -6,6 +6,7 @@ import { AssetService } from '../services/asset.service';
 import { Router } from '@angular/router';
 import { LogService } from '@/shared/log.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Form, NgForm } from '@angular/forms';
 
 @Component({
     selector: 'new-asset-form',
@@ -24,29 +25,35 @@ export class NewAssetForm {
         private snackBar: MatSnackBar) { }
 
     //Create new asset
-    createAsset() {
-        this.logger.log("Creating new asset with Asset Type: " + this.asset.assetType +
-            ", Description: " + this.asset.description +
-            ", and Assigned To: " + this.asset.assignedTo);
+    createAsset(assetForm: NgForm) {
+        if(assetForm.valid){
+            this.logger.log("Creating new asset with Asset Type: " + this.asset.assetType +
+                ", Description: " + this.asset.description +
+                ", and Assigned To: " + this.asset.assignedTo);
 
-        this.assetService.createAsset(this.asset)
-            .subscribe(() => {
+            this.assetService.createAsset(this.asset)
+                .subscribe(() => {
 
-                const snackBarRef = this.snackBar.open('Asset successfully created.', 'Dismiss', {
-                    duration: 5000
-                });
-
-                snackBarRef.afterDismissed().subscribe(() => {
-                    this.router.navigate(['/']);
-                });
-
-            },
-                error => {
-                    this.logger.log("Error creating new asset: " + error);
-                    const snackBarRef = this.snackBar.open('Error creating new asset, please try again.', 'Dismiss', {
+                    const snackBarRef = this.snackBar.open('Asset successfully created.', 'Dismiss', {
                         duration: 5000
                     });
-                });
+
+                    snackBarRef.afterDismissed().subscribe(() => {
+                        this.router.navigate(['/']);
+                    });
+
+                },
+                    error => {
+                        this.logger.log("Error creating new asset: " + error);
+                        const snackBarRef = this.snackBar.open('Error creating new asset, please try again.', 'Dismiss', {
+                            duration: 5000
+                        });
+                    });
+        } else {
+            const snackBarRef = this.snackBar.open('Oops! Please check for validation errors and try again.', 'Dismiss', {
+                duration: 5000
+            });
+        }
     }
 
     //Reset all form fields

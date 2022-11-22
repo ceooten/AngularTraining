@@ -3,7 +3,7 @@
         <button class="btn btn-outline-dark" style="width: fit-content;"> « Back to Asset List</button>
     </a>
 
-    <form>
+    <form #assetForm="ngForm" (ngSubmit)="createAsset(assetForm)">
         <div class="container">
             <h2>Create New Asset</h2>
             <div class="row">
@@ -33,14 +33,14 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Description</mat-label>
                         <textarea matInput name="Description" class="form-field" required
-                            [(ngModel)]="asset.description" placeholder="Description"></textarea>
+                            [(ngModel)]="asset.description" placeholder="Description" maxlength="255"></textarea>
                     </mat-form-field>
                 </div>
             </div>
 
             <div class="row justify-content-around">
-                <button class="btn btn-secondary" (click)="resetForm()">Reset Form</button>
-                <button class="btn btn-primary" (click)="createAsset()">Save Asset</button>
+                <button class="btn btn-secondary" type="button" (click)="resetForm()">Reset Form</button>
+                <button class="btn btn-primary" type="submit">Save Asset</button>
             </div>
         </div>
     </form>
