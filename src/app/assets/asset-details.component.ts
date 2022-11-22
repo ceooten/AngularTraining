@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LogService } from '../shared/log.service';
+import { DateFormat } from '@/constants/dateFormat';
 
 @Component({
     selector: 'asset-details',
@@ -15,7 +16,8 @@ export class AssetDetails {
 
     assetTagId: string;
     assetDetails: Asset;
-
+    dateFormat = DateFormat;
+    
     constructor(
         private assetService: AssetService,
         private logger: LogService,

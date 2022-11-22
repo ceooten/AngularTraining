@@ -19,21 +19,21 @@
                     <div class="col">
                         <mat-form-field appearance="fill">
                             <mat-label>Tag ID</mat-label>
-                            <input matInput name="TagID" class="form-field" [(ngModel)]="assetDetails.assetTagId"
+                            <input matInput name="TagID" class="form-field" [ngModel]="assetDetails.assetTagId"
                                 [readonly]="true" placeholder="Tag ID">
                         </mat-form-field>
                     </div>
                     <div class="col">
                         <mat-form-field appearance="fill">
                             <mat-label>Asset Type</mat-label>
-                            <input matInput name="AssetType" class="form-field" [(ngModel)]="assetDetails.assetType"
+                            <input matInput name="AssetType" class="form-field" [ngModel]="assetDetails.assetType"
                                 [readonly]="true" placeholder="Asset Type">
                         </mat-form-field>
                     </div>
                     <div class="col">
                         <mat-form-field appearance="fill">
                             <mat-label>Date Added</mat-label>
-                            <input matInput name="DateAdded" class="form-field" [(ngModel)]="assetDetails.dateAdded"
+                            <input matInput name="DateAdded" class="form-field" [ngModel]="assetDetails.dateAdded | date: dateFormat"
                                 [readonly]="true" placeholder="Date Added">
                         </mat-form-field>
                     </div>
@@ -61,14 +61,14 @@
                         <mat-form-field appearance="fill">
                             <mat-label>Retired</mat-label>
                             <input matInput name="Retired" class="form-field" [readonly]="true"
-                                [(ngModel)]="assetDetails.retired" placeholder="Retired">
+                                [ngModel]="assetDetails.retired" placeholder="Retired">
                         </mat-form-field>
                     </div>
                     <div class="col">
                         <mat-form-field appearance="fill">
                             <mat-label>Date Retired</mat-label>
                             <input matInput name="DateRetired" class="form-field" [readonly]="true"
-                                [(ngModel)]='assetDetails.dateRetired' placeholder="Date Retired">
+                                [ngModel]="assetDetails.dateRetired | date: dateFormat" placeholder="Date Retired">
                         </mat-form-field>
                     </div>
                 </div>

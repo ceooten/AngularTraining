@@ -6,6 +6,7 @@ import { FormControl } from '@angular/forms';
 import { AssetService } from './../services/asset.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LogService } from '@/shared/log.service';
+import { DateFormat } from '@/constants/dateFormat';
 
 @Component({
     selector: 'asset-list',
@@ -16,6 +17,7 @@ import { LogService } from '@/shared/log.service';
 export class AssetList {
     assets: Asset[] = [];
     assignedToQueryParam: string = null;
+    dateFormat = DateFormat;
     displayedColumns = ['assetTagId', 'assetType', 'description', 'dateAdded', 'assignedTo', 'retired', 'dateRetired'];
     dataSource = new MatTableDataSource<Asset>(this.assets);
     filteredValues = {
