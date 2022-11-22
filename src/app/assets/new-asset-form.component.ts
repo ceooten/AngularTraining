@@ -38,19 +38,19 @@ export class NewAssetForm {
                         duration: 5000
                     });
 
-                    snackBarRef.afterDismissed().subscribe(() => {
+                    snackBarRef.afterOpened().subscribe(() => {
                         this.router.navigate(['/']);
                     });
 
                 },
                     error => {
                         this.logger.log("Error creating new asset: " + error);
-                        const snackBarRef = this.snackBar.open('Error creating new asset, please try again.', 'Dismiss', {
+                        this.snackBar.open('Error creating new asset, please try again.', 'Dismiss', {
                             duration: 5000
                         });
                     });
         } else {
-            const snackBarRef = this.snackBar.open('Oops! Please check for validation errors and try again.', 'Dismiss', {
+            this.snackBar.open('Oops! Please check for validation errors and try again.', 'Dismiss', {
                 duration: 5000
             });
         }
