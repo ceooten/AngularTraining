@@ -102,7 +102,7 @@ export class MockBackendInterceptor implements HttpInterceptor {
             let assetIdentity = localStorage.getItem('assetIdentity') || '1';
             let assetDto = createAssetFromObject(parseBody());
 
-            let newAsset = new Asset();
+            let newAsset = <Asset>{};
             newAsset.assetTagId = parseInt(assetIdentity); // set tag id, overwrite any already set value
             newAsset.dateAdded = new Date();
             newAsset.assetType = assetDto.assetType || null;
@@ -196,7 +196,7 @@ export class MockBackendInterceptor implements HttpInterceptor {
 
 function createAssetFromObject(obj : any) : Asset
 {
-  let asset = new Asset();
+  let asset = <Asset>{};
   return Object.assign(asset, obj);
 }
 

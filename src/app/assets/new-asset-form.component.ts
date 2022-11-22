@@ -15,7 +15,7 @@ import { Form, NgForm } from '@angular/forms';
 })
 
 export class NewAssetForm {
-    asset: Asset = new Asset();
+    asset: Asset = <Asset>{};
     assetTypes = AssetTypes;
     @ViewChild(MatSelect, { static: false }) assetType: MatSelect;
 
