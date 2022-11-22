@@ -55,10 +55,4 @@ export class NewAssetForm {
             });
         }
     }
-
-    //Reset all form fields
-    resetForm() {
-        this.asset = new Asset();
-        this.assetType.options.forEach((data: MatOption) => data.deselect())
-    }
 }

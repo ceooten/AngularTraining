@@ -7,7 +7,6 @@
         <div class="container">
             <h2>Create New Asset</h2>
             <div class="row">
-
                 <div class="col">
                     <mat-form-field appearance="outline">
                         <mat-label>Asset Type</mat-label>
@@ -25,7 +24,6 @@
                             placeholder="Assigned To" maxlength="255">
                     </mat-form-field>
                 </div>
-
             </div>
 
             <div class="row">
@@ -39,7 +37,7 @@
             </div>
 
             <div class="row justify-content-around">
-                <button class="btn btn-secondary" type="button" (click)="resetForm()">Reset Form</button>
+                <button class="btn btn-secondary" type="button" (click)="assetForm.resetForm()">Reset Form</button>
                 <button class="btn btn-primary" type="submit">Save Asset</button>
             </div>
         </div>

@@ -10,7 +10,7 @@
         </div>
 
         <div *ngIf="assetDetails?.assetTagId != null">
-            <form>
+            <form #assetDetailsForm="ngForm" (ngSubmit)="updateAsset(assetDetailsForm)">
 
                 <h2>Asset Details</h2>
                 <p>Assigned to: <a [routerLink]="['/']"
@@ -33,8 +33,9 @@
                     <div class="col">
                         <mat-form-field appearance="fill">
                             <mat-label>Date Added</mat-label>
-                            <input matInput name="DateAdded" class="form-field" [ngModel]="assetDetails.dateAdded | date: dateFormat"
-                                [readonly]="true" placeholder="Date Added">
+                            <input matInput name="DateAdded" class="form-field"
+                                [ngModel]="assetDetails.dateAdded | date: dateFormat" [readonly]="true"
+                                placeholder="Date Added">
                         </mat-form-field>
                     </div>
                 </div>
@@ -44,14 +45,15 @@
                         <mat-form-field appearance="outline">
                             <mat-label>Assigned To</mat-label>
                             <input matInput name="AssignedTo" class="form-field" [(ngModel)]="assetDetails.assignedTo"
-                                placeholder="Assigned To">
+                                placeholder="Assigned To" maxlength="255">
                         </mat-form-field>
                     </div>
                     <div class="col">
                         <mat-form-field appearance="outline">
                             <mat-label>Description</mat-label>
                             <textarea matInput name="Description" class="form-field" required
-                                [(ngModel)]="assetDetails.description" placeholder="Description"></textarea>
+                                [(ngModel)]="assetDetails.description" placeholder="Description"
+                                maxlength="255"></textarea>
                         </mat-form-field>
                     </div>
                 </div>
@@ -74,13 +76,13 @@
                 </div>
 
                 <div class="row justify-content-around">
-                    <button *ngIf="!assetDetails.retired" class="btn btn-secondary" (click)="retireAsset()"
+                    <button *ngIf="!assetDetails.retired" class="btn btn-secondary" (click)="retireAsset(assetDetailsForm)"
                         title="Note: Clicking this button will retire the asset, and save any changes made">Retire
                         Asset and Save</button>
-                    <button *ngIf="assetDetails.retired" class="btn btn-secondary" (click)="unretireAsset()"
+                    <button *ngIf="assetDetails.retired" class="btn btn-secondary" (click)="unretireAsset(assetDetailsForm)"
                         title="Note: Clicking this button will un-retire the asset, and save any changes made">Un-Retire
                         Asset and Save</button>
-                    <button class="btn btn-primary" (click)="updateAsset()">Save Changes</button>
+                    <button class="btn btn-primary" type="submit">Save Changes</button>
                 </div>
 
             </form>
