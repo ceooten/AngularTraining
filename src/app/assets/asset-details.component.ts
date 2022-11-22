@@ -18,7 +18,7 @@ export class AssetDetails {
     assetTagId: string;
     assetDetails: Asset;
     dateFormat = DateFormat;
-    
+
     constructor(
         private assetService: AssetService,
         private logger: LogService,
@@ -26,9 +26,8 @@ export class AssetDetails {
         private snackBar: MatSnackBar) { }
 
     ngOnInit() {
-        //Get asset tag ID from query parameters
-        this.route.queryParams.subscribe(params => {
-            this.assetTagId = params.assetTagId;
+        this.route.paramMap.subscribe( params => {
+            this.assetTagId = params.get('assetTagId');
         });
 
         this.getAssetDetails();

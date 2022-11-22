@@ -5,9 +5,10 @@ import { AssetDetails } from './assets/asset-details.component';
 import { NewAssetForm } from './assets/new-asset-form.component';
 
 const routes: Routes = [
-  { path: '', component: AssetList},
-  { path: 'details', component: AssetDetails},
-  { path: 'new-asset', component: NewAssetForm}
+  { path: ':assignedTo', component: AssetList},
+  { path: 'details/:assetTagId', component: AssetDetails},
+  { path: 'new-asset', component: NewAssetForm},
+  { path: '', component: AssetList}
 ];
 
 @NgModule({

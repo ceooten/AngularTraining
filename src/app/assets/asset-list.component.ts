@@ -16,7 +16,7 @@ import { DateFormat } from '@/constants/dateFormat';
 
 export class AssetList {
     assets: Asset[] = [];
-    assignedToQueryParam: string = null;
+    assignedToRouteParam: string = null;
     dateFormat = DateFormat;
     displayedColumns = ['assetTagId', 'assetType', 'description', 'dateAdded', 'assignedTo', 'retired', 'dateRetired'];
     dataSource = new MatTableDataSource<Asset>(this.assets);
@@ -49,12 +49,11 @@ export class AssetList {
 
         this.initFilterListeners();
 
-        //Get employee ID from query parameters if it exists. 
+        //Get employee ID from route parameters if it exists. 
         //This is used to see all assets assigned to an employee.
-        this.route.queryParams.subscribe(params => {
-            if (params.employeeId != null) {
-                this.assignedToQueryParam = params.employeeId;
-                this.assignedToFilter.setValue(params.employeeId);
+        this.route.paramMap.subscribe( params => {
+            if(params.get('assignedTo') != null){
+                this.assignedToFilter.setValue(params.get('assignedTo'));
             }
         });
 
@@ -92,15 +91,6 @@ export class AssetList {
         this.assignedToFilter.valueChanges.subscribe((filterValue) => {
             this.filteredValues['assignedTo'] = filterValue;
             this.dataSource.filter = JSON.stringify(this.filteredValues);
-
-            if (this.assignedToQueryParam != null) {
-                this.router.navigate([], {
-                    queryParams: {
-                        'employeeId': null
-                    },
-                    queryParamsHandling: 'merge'
-                });
-            }
         });
 
         this.retiredFilter.valueChanges.subscribe((filterValue) => {
@@ -132,7 +122,7 @@ export class AssetList {
             let searchString = JSON.parse(filter);
 
             return (data.assetTagId == null ? "" : data.assetTagId).toString().trim().indexOf(searchString.tagId) !== -1 &&
-                (data.assetTagId == null ? "" : data.assetType).toString().trim().toLowerCase().indexOf(searchString.assetType.toLowerCase()) !== -1 &&
+                (data.assetType == null ? "" : data.assetType).toString().trim().toLowerCase().indexOf(searchString.assetType.toLowerCase()) !== -1 &&
                 (data.description == null ? "" : data.description).toString().trim().toLowerCase().indexOf(searchString.description.toLowerCase()) !== -1 &&
                 (data.assignedTo == null ? "" : data.assignedTo).toString().trim().toLowerCase().indexOf(searchString.assignedTo.toLowerCase()) !== -1 &&
                 (data.dateAdded == null ? "" : data.dateAdded).toString().trim().toLowerCase().indexOf(searchString.dateAdded.toLowerCase()) !== -1 &&
